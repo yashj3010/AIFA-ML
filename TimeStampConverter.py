@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 
-file_path=r"C:\Users\prach\Downloads\Logger 1"   #path of csvs
+file_path=r"C:\\Users\\prach\\Downloads\\Logger 1"   #path of csvs
 
 
 ### Fuction to convert timestamp from object datatype to datetime
