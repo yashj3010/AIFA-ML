@@ -13,6 +13,7 @@ def TimeStampFormatter(path):
     for i in raw_csvs:
         df= pd.read_csv(os.path.join(path,i))
         df['TimeStamp'] = pd.to_datetime(df['TimeStamp'], format="%H:%M")   #Edit format according to the need currently output in HH:MM form
+        df['TimeStamp'] = pd.DatetimeIndex(df['TimeStamp']).time
         return df
 
 if __name__ == "__main__":
