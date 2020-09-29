@@ -2,8 +2,8 @@ import pandas as pd
 import TimeStampConverter as tsc
 import os
 
-file_path=r"C:\\Users\\prach\\Downloads\\Logger 1"   #path of csvs
-output_path=r"C:\\Users\\prach\\Downloads"
+Restfile_path=r"CSVs\source.xlsx"   #path of csvs
+output_path=r"CSVs"
 
 def meanobservation(inpath, outpath):
     df = tsc.TimeStampFormatter(inpath)
