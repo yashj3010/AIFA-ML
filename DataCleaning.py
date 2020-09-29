@@ -22,12 +22,13 @@ def RangeScaling(val):
         return val
 
 
-def ScalingMoistureValues():                       #Scales all values between 0-1
+def ScalingMoistureValues():                       #Scales all values of Light and Moisture between 0-1
 
     df = dr.meanobservation(inpath, outpath)
     df["Moisture 1"] = df.apply(lambda row: RangeScaling(row['Moisture 1']), axis=1 )
     min_max_scaler = preprocessing.MinMaxScaler()
     df["Moisture 1"] = min_max_scaler.fit_transform(df[["Moisture 1"]])
+    df["Light"] = min_max_scaler.fit_transfrom(df[["Moisture 1"]])
     df.to_csv(os.path.join(outpath,"FullyScaled.csv"))
     return df
 
