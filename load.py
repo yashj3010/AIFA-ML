@@ -17,6 +17,7 @@ for i in range(2,len(min_max_values)):
   min_max_values[i] = float(min_max_values[i])
 
 # ------ This Round Of Data Input --------
+
 #dataAfterNormalization = [0.086112261,0.081561131,0.088506927,0.220896881,0.214928276]
 data = [85.37037037037038,172.9259259259259,205.22222222222226,29.27037037037037,17.185185185185187]
 
