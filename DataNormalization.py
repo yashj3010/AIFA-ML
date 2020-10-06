@@ -24,11 +24,23 @@ def NormalizingValues(inpath, outpath, min_val, max_val):                       
 
     print("\n----------- Minimum -----------\n")
     print(df.min())
+    print(df["TimeStamp"].min())
+    print(df["Light"].min())
+    print(df["Moisture 1"].min())
+    print(df["Moisture 2"].min())
+    print(df["Temp"].min())
+    print(df["Humidity"].min())
     
     print("\n----------- Maximum -----------\n")
     print(df.max())
+    print(df["TimeStamp"].max())
+    print(df["Light"].max())
+    print(df["Moisture 1"].max())
+    print(df["Moisture 2"].max())
+    print(df["Temp"].max())
+    print(df["Humidity"].max())
 
-    min_max_scaler = preprocessing.MinMaxScaler()
+    min_max_scaler = preprocessing.MinMaxScaler(feature_range=(0,1))
     df["Moisture 1"] = min_max_scaler.fit_transform(df[["Moisture 1"]])
     df["Moisture 2"] = min_max_scaler.fit_transform(df[["Moisture 2"]])
     df["Light"] = min_max_scaler.fit_transform(df[["Light"]])
@@ -39,4 +51,3 @@ def NormalizingValues(inpath, outpath, min_val, max_val):                       
     df.to_csv(os.path.join(outpath,"NormalizedData.csv"), index = False)
 
     return df
-
