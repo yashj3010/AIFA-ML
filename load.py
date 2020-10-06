@@ -22,11 +22,11 @@ data = [85.37037037037038,172.9259259259259,205.22222222222226,29.27037037037037
 
 # ------ Normalizing The Input To The Network --------
 
-data[0] = ((data[0] - float(min_max_values[2])) / float((min_max_values[3])- float(min_max_values[2])))
-data[1] = ((data[1] - float(min_max_values[4])) / float((min_max_values[5])- float(min_max_values[4])))
-data[2] = ((data[2] - float(min_max_values[6])) / float((min_max_values[7])- float(min_max_values[6])))
-data[3] = ((data[3] - float(min_max_values[8])) / float((min_max_values[9])- float(min_max_values[8])))
-data[4] = ((data[4] - float(min_max_values[10])) /float((min_max_values[11]) -float( min_max_values[10])))
+data[0] = ((data[0] - (min_max_values[2])) / ((min_max_values[3])- (min_max_values[2])))
+data[1] = ((data[1] - (min_max_values[4])) / ((min_max_values[5])- (min_max_values[4])))
+data[2] = ((data[2] - (min_max_values[6])) / ((min_max_values[7])- (min_max_values[6])))
+data[3] = ((data[3] - (min_max_values[8])) / ((min_max_values[9])- (min_max_values[8])))
+data[4] = ((data[4] - (min_max_values[10])) /((min_max_values[11]) -( min_max_values[10])))
 
 # ------ Creating A Dataframe Object --------
 df = pd.DataFrame([data], columns = ["Light","Moisture 1","Moisture 2","Temp","Humidity"]) 
