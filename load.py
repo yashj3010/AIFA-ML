@@ -1,41 +1,44 @@
-import pandas as pd
+# ------- IMPORTING LIBRARIES ---------
 import tensorflow as tf
-import numpy as np
-from sklearn import preprocessing
+import csv
+import pandas as pd
 
-lightMin = 0
-lightMax = 991.3385
+# ------- LIST ASSIGNMENT -------
+min_max_values = []
 
-moisture1Min = 135
-moisture1Max = 600
+# ------ READING MinMaxValue Csv Created During Normalization --------
+with open(r'CSVs\\Target\\minMaxVals.csv','rt')as f:
+  data = csv.reader(f)
+  for row in data:
+    min_max_values.append(row[0])
 
-moisture2Min = 166.889
-moisture2Max = 600
+# ------ Converting to Float --------
+for i in range(2,len(min_max_values)):
+  min_max_values[i] = float(min_max_values[i])
 
-tempMin = 21.3167
-tempMax = 57.3231
-
-humidityMin = 9
-humidityMax = 47.0833
-
-#data = [0.086112261,0.081561131,0.088506927,0.220896881,0.214928276]
+# ------ This Round Of Data Input --------
+#dataAfterNormalization = [0.086112261,0.081561131,0.088506927,0.220896881,0.214928276]
 data = [85.37037037037038,172.9259259259259,205.22222222222226,29.27037037037037,17.185185185185187]
 
-data[0] = ((data[0] - lightMin) / (lightMax - lightMin))
-data[1] = ((data[1] - moisture1Min) / (moisture1Max - moisture1Min))
-data[2] = ((data[2] - moisture2Min) / (moisture2Max - moisture2Min))
-data[3] = ((data[3] - tempMin) / (tempMax - tempMin))
-data[4] = ((data[4] - humidityMin) / (humidityMax - humidityMin))
+# ------ Normalizing The Input To The Network --------
 
-print(data)
+data[0] = ((data[0] - float(min_max_values[2])) / float((min_max_values[3])- float(min_max_values[2])))
+data[1] = ((data[1] - float(min_max_values[4])) / float((min_max_values[5])- float(min_max_values[4])))
+data[2] = ((data[2] - float(min_max_values[6])) / float((min_max_values[7])- float(min_max_values[6])))
+data[3] = ((data[3] - float(min_max_values[8])) / float((min_max_values[9])- float(min_max_values[8])))
+data[4] = ((data[4] - float(min_max_values[10])) /float((min_max_values[11]) -float( min_max_values[10])))
 
+# ------ Creating A Dataframe Object --------
 df = pd.DataFrame([data], columns = ["Light","Moisture 1","Moisture 2","Temp","Humidity"]) 
 properties = list(df.columns.values)
-X = df[properties]
-#print(X)
+inputData = df[properties]
 
-new_model = tf.keras.models.load_model(r"/content/Only moisture--model.h5")
 
-acc = (new_model.predict(X))
-x = round(acc[0][0], 0)
-print(x)
+# ------ Load The H5 Tensorflow Model --------
+new_model = tf.keras.models.load_model(r"Tensorflow Models\\Only moisture--model.h5")
+
+# ------ Passing The inputData To Tensorflow Model --------
+prediction = (new_model.predict(inputData))
+answer = round(prediction[0][0], 0)
+
+print(answer)

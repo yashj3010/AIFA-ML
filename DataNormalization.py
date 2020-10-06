@@ -61,7 +61,7 @@ def NormalizingValues(inpath, outpath, min_val, max_val):                       
 
     print(min_max_values)
 
-    file = open(r'CSVs\Target\minMaxVals.csv', 'w+', newline ='') 
+    file = open(r'CSVs\\Target\\minMaxVals.csv', 'w+', newline ='') 
   
     # writing the min & Max Values Into The File
     with file:     
