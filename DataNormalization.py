@@ -18,16 +18,23 @@ def RangeScaling(val, min_val, max_val ):
 def NormalizingValues(inpath, outpath, min_val, max_val):                       #Scales all values between 0-1
 
     df = pd.read_csv(inpath, index_col = False)
+
     df["Moisture 1"] = df.apply(lambda row: RangeScaling(row['Moisture 1'], min_val, max_val), axis=1 )
     df["Moisture 2"] = df.apply(lambda row: RangeScaling(row['Moisture 2'], min_val, max_val), axis=1)
 
-    min_max_scaler = preprocessing.MinMaxScaler()
+    print("\n----------- Minimum -----------\n")
+    print(df.min())
+    
+    print("\n----------- Maximum -----------\n")
+    print(df.max())
 
+    min_max_scaler = preprocessing.MinMaxScaler()
     df["Moisture 1"] = min_max_scaler.fit_transform(df[["Moisture 1"]])
     df["Moisture 2"] = min_max_scaler.fit_transform(df[["Moisture 2"]])
     df["Light"] = min_max_scaler.fit_transform(df[["Light"]])
     df["Temp"] = min_max_scaler.fit_transform(df[["Temp"]])
     df["Humidity"] = min_max_scaler.fit_transform(df[["Humidity"]])
+
 
     df.to_csv(os.path.join(outpath,"NormalizedData.csv"), index = False)
 
