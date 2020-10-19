@@ -7,7 +7,7 @@ import pandas as pd
 min_max_values = []
 
 # ------ READING MinMaxValue Csv Created During Normalization --------
-with open(r'E:\\YASH\\Farming\\Code\\Python\\CSVs\\Target\\minMaxVals.csv','rt')as f:
+with open(r'/home/pi/Desktop/Python/CSVs/Target/minMaxVals.csv','rt')as f:
   data = csv.reader(f)
   for row in data:
     min_max_values.append(row[0])
@@ -36,7 +36,7 @@ inputData = df[properties]
 
 
 # ------ Load The H5 Tensorflow Model --------
-new_model = tf.keras.models.load_model(r"NNModelTraining\irrigation.h5")
+new_model = tf.keras.models.load_model(r"/home/pi/Desktop/Python/Tensorflow Models/irrigation.h5")
 
 # ------ Passing The inputData To Tensorflow Model --------
 prediction = (new_model.predict(inputData))
