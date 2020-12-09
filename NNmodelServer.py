@@ -7,6 +7,16 @@ import keras
 from tensorflow.keras.models import load_model
 import numpy as np
 
+min_val = 135
+max_val = 600
+
+def RangeScaling(val):
+    if val<min_val:
+        return min_val
+    elif val>max_val:
+        return max_val
+    else:
+        return val
 
 # ------- LOAD MODEL -------
 
@@ -61,6 +71,9 @@ def predict():
         # ------ Converting to Float --------
         for i in parList:
             data.append(float(i))
+
+        data[1] = RangeScaling(data[1])
+        data[2] = RangeScaling(data[2])
         
         # ------ Normalizing The Input To The Network --------
         data[0] = ((data[0] - (min_max_values[2])) / ((min_max_values[3])- (min_max_values[2])))
