@@ -20,13 +20,13 @@ def RangeScaling(val):
 
 # ------- LOAD MODEL -------
 
-model = load_model(r"/home/pi/Desktop/Python/Tensorflow Models/irrigation.h5")
+model = load_model(r"Tensorflow Models\\irrigation.h5")
 
 # ------- LIST ASSIGNMENT -------
 min_max_values = []
 
 # ------ READING MinMaxValue Csv Created During Normalization --------
-with open(r'/home/pi/Desktop/Python/CSVs/Target/minMaxVals.csv','rt')as f:
+with open(r'CSVs/Target/minMaxVals.csv','rt')as f:
   data = csv.reader(f)
   for row in data:
     min_max_values.append(row[0])
