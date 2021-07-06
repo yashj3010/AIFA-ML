@@ -14,44 +14,54 @@ from flask import Flask
 
 app = Flask(__name__)
 
-def get_model():
-    global model
-    model = load_model('DiseaseIdentification.h5')
-    #model._make_predict_function()
-    print(" * Model loaded!")
+diseaseModel = load_model(
+    r"Tensorflow Models\DiseaseIdentification.h5"
+)
 
-def model_predict(img, model):
+def model_predict(img):
+    global diseaseModel
     img = img.resize((224, 224))
 
     # Preprocessing the image
-    x = image.img_to_array(img)
+    x = img_to_array(img)
     # x = np.true_divide(x, 255)
     x = np.expand_dims(x, axis=0)
     x = preprocess_input(x, mode='tf')
 
-    preds = model.predict(x)
+    preds = diseaseModel.predict(x)
+    print(preds)
     return preds
     
 print(" * Loading Keras model...")
-get_model()
+
+@app.route("/")
+def index():
+    return "Welcome TO AIFA Disease BackEnd!"
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    global model
+    global diseaseModel
+
     message = request.get_json(force=True)
-    encoded = message['image']
+    encoded = message["image"]
     decoded = base64.b64decode(encoded)
     image = Image.open(io.BytesIO(decoded))
-    preds = model_predict(img, model)
-    #processed_image = preprocess_image(image, target_size=(224, 224))
-    # Process your result for human
-    pred_proba = "{:.3f}".format(np.amax(preds))    # Max probability
-    pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
-
-    result = str(pred_class[0][0][1])               # Convert to string
-    result = result.replace('_', ' ').capitalize()
-
-    #prediction = model.predict(processed_image).tolist()
-
-    return jsonify(result=result, probability=pred_proba)
     
+    img = image.resize((224, 224))
+
+    # Preprocessing the image
+    x = img_to_array(img)
+    x = np.expand_dims(x, axis=0)
+    x = preprocess_input(x, mode="tf")
+
+    preds = diseaseModel.predict(x)
+    # Process your result for human
+    pred_proba = "{:.3f}".format(np.amax(preds))  # Max probability
+    pred_class = decode_predictions(preds, top=1)  # ImageNet Decode
+
+    result = str(pred_class[0][0][1])  # Convert to string
+    result = result.replace("_", " ").capitalize()
+    print(result)
+    return jsonify(result=result, probability=pred_proba), 201
+
+app.run(debug=True, host="0.0.0.0", port=4445)

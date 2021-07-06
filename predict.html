@@ -47,20 +47,7 @@
             image: base64Image
         }
         console.log(message);
-        $.post("http://127.0.0.1:5000/predict", JSON.stringify(message), function(response){
-            $("#Potato Early Blight-prediction").text(response.prediction.Potato Early Blight.toFixed(6));
-            $("#Potato Late Blight-prediction").text(response.prediction.Potato Late Blight.toFixed(6));
-            $("#Potato Healthy-prediction").text(response.prediction.Potato Healthy.toFixed(6));
-            $("#Tomato Bacterial Spot-prediction").text(response.prediction.Tomato Bacterial Spot.toFixed(6));
-            $("#Tomato Early Blight-prediction").text(response.prediction.Tomato Early Blight.toFixed(6));
-            $("#Tomato Late Blight-prediction").text(response.prediction.Tomato Late Blight.toFixed(6));
-            $("#Tomato Leaf Mold-prediction").text(response.prediction.Tomato Leaf Mold.toFixed(6));
-            $("#Tomato Septoria Leaf Spot-prediction").text(response.prediction.Tomato Septoria Leaf Spot.toFixed(6));
-            $("#Tomato Spider Mites-prediction").text(response.prediction.Tomato Spider Mites.toFixed(6));
-            $("#Tomato Target Spot-prediction").text(response.prediction.Tomato Target Spot.toFixed(6));
-            $("#Tomato Yellow Leaf Curl Virus-prediction").text(response.prediction.Tomato Yellow Leaf Curl Virus.toFixed(6));
-            $("#Tomato Mosaic Virus-prediction").text(response.prediction.Tomato Mosaic Virus.toFixed(6));
-            $("#Tomato Healthy-prediction").text(response.prediction.Tomato Healthy.toFixed(6));
+        $.post("http://192.168.0.107:4445/predict", JSON.stringify(message), function(response){
             console.log(response);
         });
     });       
