@@ -20,7 +20,7 @@ def RangeScaling(val):
 
 # ------- LOAD MODEL -------
 
-model = load_model(r"Tensorflow Models\\irrigation.h5")
+model = load_model(r"/home/jetbot/Desktop/server/Python/Tensorflow Models/irrigation.h5")
 
 # ------- LIST ASSIGNMENT -------
 min_max_values = []
@@ -42,14 +42,14 @@ for i in range(2,len(min_max_values)):
 app = Flask(__name__)
 @app.route("/")
 def index():
-    return "Atleat server is working !!! Hello Lets ML!"
+    return "Welcome TO AIFA backend!"
 
 
 # define a predict function as an endpoint
 @app.route("/calc", methods=["GET","POST"])
 
 def predict():
-    paramIndex = [7,5,6,3,4]
+    paramIndex = [6,4,5,2,3]
 
     data = []
     parList = []
@@ -95,4 +95,4 @@ def predict():
         return str(answer),201       
 
 # start the flask app, allow remote connections
-app.run(debug=True, host='127.0.1.2', port= 4444)
+app.run(debug=True, host='0.0.0.0', port= 4444)
