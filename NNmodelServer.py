@@ -36,10 +36,10 @@ def RangeScaling(val):
 
 
 irrigationModel = load_model(
-    r"/home/jetbot/Desktop/server/Python/Tensorflow irrigationModels/irrigation.h5"
+    r"Tensorflow Models\irrigation.h5"
 )
 diseaseModel = load_model(
-    r"/home/jetbot/Desktop/server/Python/Tensorflow Models/DiseaseIdentification.h5"
+    r"Tensorflow Models\irrigation.h5"
 )
 
 # ------- LIST ASSIGNMENT -------
@@ -78,7 +78,7 @@ def predict():
     params = request.json
     parDict = params[0]
     parListValues = list(parDict.values())
-
+    print(params)
     for i in paramIndex:
         parList.append(parListValues[i])
 
@@ -121,40 +121,11 @@ def predict():
 
         # ------ Passing The inputData To Tensorflow irrigationModel --------
         prediction = irrigationModel.predict(x)
+        print(prediction)
         answer = round(prediction[0][0], 0)
 
         # ------ Returning The Answer --------
         return str(answer), 201
 
-
-@app.route("/disease", methods=["GET", "POST"])
-
-def predict():
-    # ------ PreProcessing --------
-    global diseaseModel
-
-    message = request.get_json(force=True)
-    encoded = message["image"]
-    decoded = base64.b64decode(encoded)
-    image = Image.open(io.BytesIO(decoded))
-    
-    img = image.resize((224, 224))
-
-    # Preprocessing the image
-    x = img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x, mode="tf")
-
-    preds = diseaseModel.predict(x)
-    # Process your result for human
-    pred_proba = "{:.3f}".format(np.amax(preds))  # Max probability
-    pred_class = decode_predictions(preds, top=1)  # ImageNet Decode
-
-    result = str(pred_class[0][0][1])  # Convert to string
-    result = result.replace("_", " ").capitalize()
-    print(result)
-    return jsonify(result=result, probability=pred_proba), 201
-
-
 # start the flask app, allow remote connections
-app.run(debug=True, host="0.0.0.0", port=4444)
+app.run(debug=True, host="0.0.0.0", port=4448)

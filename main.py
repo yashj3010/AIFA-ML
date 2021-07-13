@@ -8,8 +8,8 @@ import Shuffle as sh
 
 RawFilePath = r"CSVs\Source\RawDataSample.csv"
 OutputFilePath = r"CSVs\Target"
-MinVal = 510            #sensor value for maximum hydration
-MaxVal = 975            #sensor value for minimum hydration
+MinVal = 537            #sensor value for maximum hydration
+MaxVal = 950            #sensor value for minimum hydration
 
 
 if __name__ == "__main__":
